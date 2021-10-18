@@ -1,23 +1,22 @@
 import { NextFunction, Request, Response } from "express";
-import { User, UserResult } from "../types";
+import { Model } from "mongoose";
+import { Rush, RushResult } from "../types";
 
-export const pagination = (
-  model: User[],
-) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+export const pagination = (model: Model<Rush>) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const page = parseInt(req.query.page as string);
     const limit = parseInt(req.query.limit as string);
 
     const startIndex: number = (page - 1) * limit;
     const endIndex: number = page * limit;
 
-    const results: UserResult = {
+    const results: RushResult = {
       results: [],
       next: null,
       prev: null,
     };
 
-    if (endIndex < model.length)
+    if (endIndex < (await model.countDocuments().exec()))
       results.next = {
         limit: limit,
         page: page + 1,
@@ -27,7 +26,13 @@ export const pagination = (
         page: page - 1,
         limit: limit,
       };
-    results.results = model.slice(startIndex, endIndex);
+
+    try {
+      results.results = await model.find().limit(limit).skip(startIndex).exec();
+      console.log(results.results)
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
     res.paginatedResults = results;
     next();
   };
