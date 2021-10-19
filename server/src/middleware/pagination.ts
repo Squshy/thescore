@@ -29,7 +29,6 @@ export const pagination = (model: Model<Rush>) => {
 
     try {
       results.results = await model.find().limit(limit).skip(startIndex).exec();
-      console.log(results.results)
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

@@ -2,92 +2,92 @@ import { Schema, model } from "mongoose";
 import { Rush } from "../types";
 
 export const rushSchema = new Schema<Rush>({
-  avg_yards: {
+  Avg: {
+    type: Number,
+    required: true,
+    default: 0,
+    alias: "avg_yards",
+  },
+  "1st%": {
     type: Number,
     required: false,
     default: 0,
-    alias: "Avg",
+    alias: "first_down_percent",
   },
-  first_down_percent: {
+  "1st": {
     type: Number,
     required: false,
     default: 0,
-    alias: "1st%",
+    alias: "first_downs",
   },
-  first_downs: {
+  FUM: {
     type: Number,
     required: false,
     default: 0,
-    alias: "1st",
+    alias: "fumbles",
   },
-  fumbles: {
-    type: Number,
-    required: false,
-    default: 0,
-    alias: "FUM",
-  },
-  longest_rush: {
+  Lng: {
     type: String,
     required: false,
     default: "",
-    alias: "Lng",
+    alias: "longest_rush",
   },
-  player: {
+  Player: {
     type: String,
     required: true,
-    alias: "Player",
+    alias: "player",
   },
-  pos: {
+  Pos: {
     type: String,
     required: true,
-    alias: "Pos",
+    alias: "pos",
   },
-  rush_attempts: {
+  Att: {
     type: Number,
     required: false,
     default: 0,
-    alias: "Att",
+    alias: "rush_attempts",
   },
-  rush_attempts_per_game: {
+  "Att/G": {
     type: Number,
     required: false,
     default: 0,
-    alias: "Att/G",
+    alias: "rush_attempts_per_game",
   },
-  team: {
+  Team: {
     type: String,
     required: true,
-    alias: "Team",
+    alias: "team",
   },
-  total_yards: {
+  Yds: {
     type: Number,
     required: false,
     default: 0,
-    alias: "Yds",
+    alias: "total_yards",
   },
-  touchdowns: {
+  TD: {
     type: Number,
     required: false,
     default: 0,
-    alias: "TD",
+    alias: "touchdowns",
   },
-  yards_per_game: {
+  "Yds/G": {
     type: Number,
     required: false,
     default: 0,
-    alias: "Yds/G",
+    alias: "yards_per_game",
   },
-  yards_rush_20: {
+  "20+": {
     type: Number,
     required: false,
     default: 0,
-    alias: "20+",
+    alias: "yards_rush_40",
   },
-  yards_rush_40: {
+  "40+": {
     type: Number,
     required: false,
     default: 0,
-    alias: "40+",
+    alias: "yards_rush_40",
   },
 });
 
