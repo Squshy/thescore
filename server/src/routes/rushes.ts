@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
 import { pagination } from "../middleware/pagination";
-import Rush, { rushSchema } from "../models/Rush";
+import Rush from "../models/Rush";
 import { PaginationResult } from "../types";
 import { checkForNextPage } from "../utils/checkForNextPage";
 import { rushesToCSV } from "../utils/toCSV";
@@ -141,12 +141,11 @@ router.get(
 );
 
 router.get("/csv", async (req: Request, res: Response) => {
-  const swag = await Rush.find().lean().limit(10).exec();
+  const swag = await Rush.find().lean().exec();
   const yes = await rushesToCSV(swag);
   res.set("Content-Type", "text/csv");
   res.attachment('swag.csv')
   return res.send(yes);
-  // res.json({ message: "cool" });
 });
 
 export default router;
