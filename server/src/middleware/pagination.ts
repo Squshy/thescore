@@ -11,8 +11,9 @@ export const pagination = (model: Model<any>) => {
     const endIndex: number = page * limit;
     let next: PaginationType = null;
     let prev: PaginationType = null;
+    const numDocuments = await model.countDocuments().exec();
 
-    if (endIndex < (await model.countDocuments().exec()))
+    if (endIndex < numDocuments)
       next = {
         limit: limit,
         page: page + 1,
@@ -23,7 +24,7 @@ export const pagination = (model: Model<any>) => {
         limit: limit,
       };
 
-    res.paginationInfo = {next, prev, limit, startIndex};
+    res.paginationInfo = { next, prev, limit, startIndex };
     nextF();
   };
 };
