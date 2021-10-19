@@ -29,6 +29,8 @@ export const pagination = (model: Model<Rush>) => {
 
     try {
       results.results = await model.find().limit(limit).skip(startIndex).exec();
+      const swag = await model.find({$text: {$search: "Joe Flacco"}}).exec();
+      console.log("swag:", swag);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

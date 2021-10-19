@@ -36,6 +36,7 @@ export const rushSchema = new Schema<Rush>({
     type: String,
     required: true,
     alias: "player",
+    index: 'text'
   },
   Pos: {
     type: String,
@@ -91,4 +92,5 @@ export const rushSchema = new Schema<Rush>({
   },
 });
 
+rushSchema.index({ player: "text" });
 export default model("Rush", rushSchema);
