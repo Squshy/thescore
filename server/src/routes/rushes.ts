@@ -2,12 +2,13 @@ import { Router, Response, Request } from "express";
 import { pagination } from "../middleware/pagination";
 import Rush from "../models/Rush";
 import { PaginationResult } from "../types";
+import { checkForNextPage } from "../utils/checkForNextPage";
 
 const router = Router();
 
 // Get all default data
 router.get("/", pagination(Rush), async (_, res: Response) => {
-  const { limit, next, prev, startIndex } = res.paginationInfo;
+  const { limit, fakeLimit, next, prev, startIndex } = res.paginationInfo;
   const results: PaginationResult = {
     next: next,
     prev: prev,
@@ -16,22 +17,21 @@ router.get("/", pagination(Rush), async (_, res: Response) => {
 
   try {
     results.results = await Rush.find()
-      .limit(limit + 1)
+      .limit(fakeLimit)
       .skip(startIndex)
       .exec();
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 
-  if (results.results.length <= limit) results.next = null;
-  results.results.pop();
+  checkForNextPage(results, limit);
   res.json(results);
 });
 
 // Filter by name
 router.get("/:name", pagination(Rush), async (req: Request, res: Response) => {
   const name = req.params.name;
-  const { limit, next, prev, startIndex } = res.paginationInfo;
+  const { limit, fakeLimit, next, prev, startIndex } = res.paginationInfo;
   const results: PaginationResult = {
     next: next,
     prev: prev,
@@ -40,14 +40,14 @@ router.get("/:name", pagination(Rush), async (req: Request, res: Response) => {
 
   try {
     results.results = await Rush.find({ $text: { $search: name } })
-      .limit(limit + 1)
+      .limit(fakeLimit)
       .skip(startIndex)
       .exec();
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-  if (results.results.length <= limit) results.next = null;
-  results.results.pop();
+
+  checkForNextPage(results, limit);
   res.json(results);
 });
 

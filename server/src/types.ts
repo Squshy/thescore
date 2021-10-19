@@ -4,6 +4,7 @@ export type PaginationInfo = {
   next: PaginationType;
   prev: PaginationType;
   limit: number;
+  fakeLimit: number;
   startIndex: number;
 };
 

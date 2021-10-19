@@ -24,7 +24,13 @@ export const pagination = (model: Model<any>) => {
         limit: limit,
       };
 
-    res.paginationInfo = { next, prev, limit, startIndex };
+    res.paginationInfo = {
+      next,
+      prev,
+      limit,
+      fakeLimit: limit + 1,
+      startIndex,
+    };
     nextF();
   };
 };
