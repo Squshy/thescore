@@ -15,12 +15,16 @@ router.get("/", pagination(Rush), async (_, res: Response) => {
   };
 
   try {
-    results.results = await Rush.find().limit(limit).skip(startIndex).exec();
+    results.results = await Rush.find()
+      .limit(limit + 1)
+      .skip(startIndex)
+      .exec();
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 
   if (results.results.length <= limit) results.next = null;
+  results.results.pop();
   res.json(results);
 });
 
@@ -36,17 +40,18 @@ router.get("/:name", pagination(Rush), async (req: Request, res: Response) => {
 
   try {
     results.results = await Rush.find({ $text: { $search: name } })
-      .limit(limit)
+      .limit(limit + 1)
       .skip(startIndex)
       .exec();
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
   if (results.results.length <= limit) results.next = null;
+  results.results.pop();
   res.json(results);
 });
 
-// Total Rushin Yards sort
+// Total Rushing Yards sort
 
 // Longest Rush sort
 

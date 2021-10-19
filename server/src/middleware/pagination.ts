@@ -6,7 +6,6 @@ export const pagination = (model: Model<any>) => {
   return async (req: Request, res: Response, nextF: NextFunction) => {
     const page = req.query.page ? parseInt(req.query.page as string) : 1;
     const limit = req.query.limit ? parseInt(req.query.limit as string) : 15;
-    console.log(limit);
 
     const startIndex: number = (page - 1) * limit;
     const endIndex: number = page * limit;
