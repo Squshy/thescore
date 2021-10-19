@@ -1,8 +1,8 @@
-import { RushResult } from "./types";
+import { PaginationInfo, PaginationType, RushResult } from "./types";
 
 declare module "express-serve-static-core" {
   interface Response {
-    paginatedResults: RushResult;
+    paginationInfo: PaginationInfo;
   }
 }
 
