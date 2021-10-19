@@ -8,7 +8,7 @@ export type PaginationInfo = {
   startIndex: number;
 };
 
-export type Rush = {
+export interface Rush {
   Player: string;
   Team: string;
   Pos: string;
