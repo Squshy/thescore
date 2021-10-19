@@ -13,16 +13,8 @@ export const pagination = (model: Model<any>) => {
     let prev: PaginationType = null;
     const numDocuments = await model.countDocuments().exec();
 
-    if (endIndex < numDocuments)
-      next = {
-        limit: limit,
-        page: page + 1,
-      };
-    if (startIndex > 0)
-      prev = {
-        page: page - 1,
-        limit: limit,
-      };
+    if (endIndex < numDocuments) next = page + 1;
+    if (startIndex > 0) prev = page - 1;
 
     res.paginationInfo = {
       next,

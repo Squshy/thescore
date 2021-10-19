@@ -13,6 +13,7 @@ router.get("/", pagination(Rush), async (_, res: Response) => {
   const results: PaginationResult = {
     next: next,
     prev: prev,
+    limit: limit,
     results: [],
   };
 
@@ -39,6 +40,7 @@ router.get(
     const results: PaginationResult = {
       next: next,
       prev: prev,
+      limit: limit,
       results: [],
     };
 
@@ -66,6 +68,7 @@ router.get(
     const results: PaginationResult = {
       next: next,
       prev: prev,
+      limit: limit,
       results: [],
     };
 
@@ -94,6 +97,7 @@ router.get(
     const results: PaginationResult = {
       next: next,
       prev: prev,
+      limit: limit,
       results: [],
     };
 
@@ -122,6 +126,7 @@ router.get(
     const results: PaginationResult = {
       next: next,
       prev: prev,
+      limit: limit,
       results: [],
     };
 
