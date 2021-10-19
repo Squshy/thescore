@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex items-center py-4 px-4 border-b border-gray-700 justify-between h-16">
+      <div className="flex items-center py-4 px-4 border-b border-gray-700 justify-between h-16 max-w-7xl mx-auto">
         <div className="flex items-center">
           <p className="text-2xl md:text-3xl mr-2 font-light">NFL Rushing</p>
           <FlagIcon className="w-4 h-4 md:w-6 md:h-6 text-blue-400" />
