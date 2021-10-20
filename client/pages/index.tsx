@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { RushesDisplay } from "../components/table/RushesDisplay";
 import { TableNavigation } from "../components/table/TableNavigation";
 import { GET_ALL_RUSHES } from "../constants";
+import { GitHubIcon } from "../icons/GitHubIcon";
 import { DataFilter, PageDirection, RushesResult } from "../types";
 import { getNewData } from "../utils/getNewData";
 
@@ -61,7 +62,14 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
         )}
       </BodyWrapper>
       <footer className="h-32 border-t border-gray-700 flex items-center justify-center text-gray-700">
-        Calvin Lapp
+        <a
+          href="https://github.com/Squshy/theScore"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Github repository for project"
+        >
+          <GitHubIcon className="w-6 h-6 text-gray-700" />
+        </a>
       </footer>
     </div>
   );
@@ -69,6 +77,7 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
 
 export async function getStaticProps() {
   const res = await fetch(GET_ALL_RUSHES);
+  console.log(res);
   const _rushData: RushesResult = await res.json();
 
   return {
