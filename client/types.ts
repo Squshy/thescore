@@ -1,14 +1,5 @@
-export type PaginationType = number | null;
-
-export type PaginationInfo = {
-  next: PaginationType;
-  prev: PaginationType;
-  limit: number;
-  fakeLimit: number;
-  startIndex: number;
-};
-
 export interface Rush {
+  _id: string;
   Player: string;
   Team: string;
   Pos: string;
@@ -26,9 +17,19 @@ export interface Rush {
   FUM: number;
 }
 
-export type PaginationResult = {
-  results: any[];
+export type PaginationType = number | null;
+
+export type RushesResult = {
+  results: Rush[];
   next: PaginationType;
   prev: PaginationType;
   limit: number;
 };
+
+export type PageDirection = "next" | "prev" | "new";
+
+export interface DataFilter {
+  filter: "touchdowns" | "yards" | "longest" | "player" | 'default';
+  direction?: "asc" | "desc";
+  name?: string;
+}
