@@ -151,6 +151,7 @@ router.get("/csv", async (req: Request, res: Response) => {
   const sort = req.query.sort;
   const direction = req.query.dir === "asc" ? "asc" : "desc";
   const player = req.query.player;
+  let sortTypeFileName = "";
   let results: RushType[] = [];
   if (sort) {
     console.log(sort);
@@ -158,6 +159,7 @@ router.get("/csv", async (req: Request, res: Response) => {
     switch (sort) {
       case "touchdowns":
         results = await Rush.find().lean().sort({ TD: direction }).exec();
+        sortTypeFileName = "touchdowns";
         break;
       case "longest":
         results = await Rush.find()
@@ -165,14 +167,17 @@ router.get("/csv", async (req: Request, res: Response) => {
           .sort({ Lng: direction })
           .collation({ locale: "en_US", numericOrdering: true })
           .exec();
+        sortTypeFileName = "longest";
         break;
       case "yards":
         results = await Rush.find().lean().sort({ Yds: direction }).exec();
+        sortTypeFileName = "yards";
         break;
       case "player":
         results = await Rush.find({ $text: { $search: player as string } })
           .lean()
           .exec();
+        sortTypeFileName = `player-search-${player as string}`;
         break;
       default:
         results = await Rush.find().lean().exec();
@@ -181,7 +186,11 @@ router.get("/csv", async (req: Request, res: Response) => {
   } else results = await Rush.find().lean().exec();
   const csvFile = await rushesToCSV(results);
   res.set("Content-Type", "text/csv");
-  res.attachment(`${baseFileName}.csv`);
+  res.attachment(
+    `${baseFileName}${
+      sortTypeFileName.length > 0 && "-" + sortTypeFileName
+    }.csv`
+  );
   return res.send(csvFile);
 });
 
