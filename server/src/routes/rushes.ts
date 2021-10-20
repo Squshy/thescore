@@ -1,5 +1,6 @@
 import { Router, Response, Request } from "express";
 import { pagination } from "../middleware/pagination";
+import { Rush as RushType } from "../types";
 import Rush from "../models/Rush";
 import { PaginationResult } from "../types";
 import { checkForNextPage } from "../utils/checkForNextPage";
@@ -145,12 +146,37 @@ router.get(
   }
 );
 
-router.get("/csv", async (_, res: Response) => {
-  const swag = await Rush.find().lean().exec();
-  const yes = await rushesToCSV(swag);
+router.get("/csv", async (req: Request, res: Response) => {
+  const baseFileName = "nfl-rushing";
+  const sort = req.query.sort;
+  const direction = req.query.dir === "asc" ? "asc" : "desc";
+  let results: RushType[] = [];
+  if (sort) {
+    console.log(sort);
+    console.log(direction);
+    switch (sort) {
+      case "touchdowns":
+        results = await Rush.find().lean().sort({ TD: direction }).exec();
+        break;
+      case "longest":
+        results = await Rush.find()
+          .lean()
+          .sort({ Lng: direction })
+          .collation({ locale: "en_US", numericOrdering: true })
+          .exec();
+        break;
+      case "yards":
+        results = await Rush.find().lean().sort({ Yds: direction }).exec();
+        break;
+      default:
+        results = await Rush.find().lean().exec();
+        break;
+    }
+  } else results = await Rush.find().lean().exec();
+  const csvFile = await rushesToCSV(results);
   res.set("Content-Type", "text/csv");
-  res.attachment('swag.csv')
-  return res.send(yes);
+  res.attachment(`${baseFileName}.csv`);
+  return res.send(csvFile);
 });
 
 export default router;
