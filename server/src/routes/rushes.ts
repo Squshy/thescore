@@ -145,7 +145,7 @@ router.get(
   }
 );
 
-router.get("/csv", async (req: Request, res: Response) => {
+router.get("/csv", async (_, res: Response) => {
   const swag = await Rush.find().lean().exec();
   const yes = await rushesToCSV(swag);
   res.set("Content-Type", "text/csv");

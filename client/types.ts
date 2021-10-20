@@ -26,4 +26,4 @@ export type RushesResult = {
   limit: number;
 };
 
-export type PageDirection = "next" | "prev";
+export type PageDirection = "next" | "prev" | "new";

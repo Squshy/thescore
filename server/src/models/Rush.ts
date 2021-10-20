@@ -92,5 +92,4 @@ export const rushSchema = new Schema<Rush>({
   },
 });
 
-rushSchema.index({ player: "text" });
 export default model("Rush", rushSchema);

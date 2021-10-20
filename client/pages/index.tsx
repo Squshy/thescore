@@ -4,7 +4,7 @@ import { BodyWrapper } from "../components/BodyWrapper";
 import { Header } from "../components/Header";
 import { RushesDisplay } from "../components/table/RushesDisplay";
 import { TableNavigation } from "../components/table/TableNavigation";
-import { GET_ALL_RUSHES } from "../constants";
+import { GET_ALL_RUSHES, SEARCH_FOR_PLAYER } from "../constants";
 import { PageDirection, RushesResult } from "../types";
 import { getNewData } from "../utils/getNewData";
 
@@ -26,9 +26,15 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
     setRushData({ ...rushData, limit: limit });
   };
 
+  const searchForPlayer = async (playerName: string) => {
+    const newData = await getNewData(rushData, SEARCH_FOR_PLAYER + `/${playerName}`);
+    if (newData === null) return; // add error
+    setRushData(newData);
+  };
+
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col justify-between">
-      <Header />
+      <Header searchForPlayer={searchForPlayer} />
       <BodyWrapper>
         <RushesDisplay rushes={rushData.results} />
         <TableNavigation
