@@ -5,5 +5,5 @@ interface TableCellProps {
 }
 
 export const TableCell: React.FC<TableCellProps> = ({ text }) => {
-  return <td className="p-2 text-center text-gray-400">{text}</td>;
+  return <td className="p-2 text-center text-gray-400">{text !== undefined ? text : '-'}</td>;
 };

@@ -7,6 +7,7 @@ interface TableBodyProps {
 }
 
 export const TableBody: React.FC<TableBodyProps> = ({ rushes }) => {
+  console.log("Rushes:", rushes);
   return (
     <tbody className="divide-y divide-gray-700">
       {rushes.map((rush) => {
@@ -17,8 +18,8 @@ export const TableBody: React.FC<TableBodyProps> = ({ rushes }) => {
             <TableCell text={rush.Pos} />
             <TableCell text={rush.Att} />
             <TableCell text={rush["Att/G"]} />
-            <TableCell text={rush.Yds} />
             <TableCell text={rush.Avg} />
+            <TableCell text={rush.Yds} />
             <TableCell text={rush["Yds/G"]} />
             <TableCell text={rush.TD} />
             <TableCell text={rush.Lng} />
