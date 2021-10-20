@@ -3,14 +3,25 @@ import { SelectorIcon, CheckIcon } from "@heroicons/react/outline";
 import React, { Fragment, useState } from "react";
 import { NUM_ITEMS_PER_PAGE } from "../constants";
 
-interface NumPerPageButtonProps {}
+interface NumPerPageButtonProps {
+  updateLimit: (limit: number) => void;
+  limit: number;
+}
 
-export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({}) => {
-  const [selected, setSelected] = useState(NUM_ITEMS_PER_PAGE[0]);
+export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({
+  updateLimit,
+  limit
+}) => {
+  const [selected, setSelected] = useState(limit);
+
+  const updateSelected = (newNum: number) => {
+    updateLimit(newNum);
+    setSelected(newNum);
+  };
 
   return (
     <div className="w-20 h-12">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={updateSelected}>
         <div className="relative">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 rounded-sm shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm h-12">
             <span className="block truncate">{selected}</span>
@@ -27,12 +38,12 @@ export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({}) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-600 bg-opacity-25 rounded-sm shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {NUM_ITEMS_PER_PAGE.map((number, idx) => (
                 <Listbox.Option
                   key={idx}
                   className={({ active }) =>
-                    `${active ? "text-amber-900 bg-amber-100" : "text-gray-900"}
+                    `${active ? "text-white bg-gray-700" : "text-gray-400"}
                           cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={number}
@@ -49,7 +60,7 @@ export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({}) => {
                       {selected ? (
                         <span
                           className={`${
-                            active ? "text-amber-600" : "text-amber-600"
+                            active ? "text-green-300" : "text-green-300"
                           }
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                         >
