@@ -31,28 +31,27 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
     setRushData({ ...rushData, limit: limit });
   };
 
-  const searchForPlayer = async (playerName: string) => {
-    const newLink = SEARCH_FOR_PLAYER + `/${playerName}`;
-    updateFetchLink(newLink);
-  };
-
   const updateFetchLink = (newLink: string) => {
+    if (newLink === currentLink) return;
     setCurrentLink(newLink);
     recieveNewData(undefined, newLink);
   };
 
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col justify-between">
-      <Header searchForPlayer={searchForPlayer} />
+      <Header searchForPlayer={updateFetchLink} />
       <BodyWrapper>
         <RushesDisplay rushes={rushData.results} sortData={updateFetchLink} />
-        <TableNavigation
-          next={() => recieveNewData("next")}
-          prev={() => recieveNewData("prev")}
-          updateLimit={updateLimit}
-          updateSort={updateFetchLink}
-          limit={rushData.limit}
-        />
+        {rushData.results.length > 0 && (
+          <TableNavigation
+            next={() => recieveNewData("next")}
+            prev={() => recieveNewData("prev")}
+            updateLimit={updateLimit}
+            limit={rushData.limit}
+            hasNext={rushData.next !== null}
+            hasPrev={rushData.prev !== null}
+          />
+        )}
       </BodyWrapper>
       <footer className="h-32 border-t border-gray-700 flex items-center justify-center text-gray-700">
         Calvin Lapp

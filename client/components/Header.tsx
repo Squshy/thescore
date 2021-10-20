@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { FlagIcon, SearchIcon } from "@heroicons/react/outline";
+import { GET_ALL_RUSHES, SEARCH_FOR_PLAYER } from "../constants";
 
 interface HeaderProps {
   searchForPlayer: (playerName: string) => void;
@@ -9,7 +10,10 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ searchForPlayer }) => {
   const [playerName, setPlayerName] = useState("");
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") searchForPlayer(playerName);
+    if (e.key === "Enter") {
+      if (playerName.length === 0) searchForPlayer(GET_ALL_RUSHES);
+      else searchForPlayer(SEARCH_FOR_PLAYER + `/${playerName}`);
+    }
   };
 
   return (

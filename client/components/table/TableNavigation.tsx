@@ -7,22 +7,28 @@ interface TableNavigationProps {
   next: () => void;
   prev: () => void;
   updateLimit: (newNum: number) => void;
-  updateSort: (sort: string) => void;
   limit: number;
+  hasNext: boolean;
+  hasPrev: boolean;
 }
 
 export const TableNavigation: React.FC<TableNavigationProps> = ({
   next,
   prev,
   updateLimit,
-  updateSort,
   limit,
+  hasNext,
+  hasPrev,
 }) => {
   return (
     <div className="flex md:flex py-4 flex-wrap-reverse justify-center space-y-2 md:flex-no-wrap md:justify-between">
       <div className="-m-2 flex items-center">
-        <NavButton func={prev}>Prev</NavButton>
-        <NavButton func={next}>Next</NavButton>
+        <NavButton func={prev} show={hasPrev}>
+          Prev
+        </NavButton>
+        <NavButton func={next} show={hasNext}>
+          Next
+        </NavButton>
       </div>
       <div className="-m-2 flex items-center">
         <NavButton func={() => {}}>
@@ -31,7 +37,11 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
             <p className="m-1 text-sm font-thin">Save as CSV</p>
           </div>
         </NavButton>
-        <NumPerPageButton updateLimit={updateLimit} limit={limit} className="w-20"/>
+        <NumPerPageButton
+          updateLimit={updateLimit}
+          limit={limit}
+          className="w-20"
+        />
       </div>
     </div>
   );
