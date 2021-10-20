@@ -4,8 +4,8 @@ import { BodyWrapper } from "../components/BodyWrapper";
 import { Header } from "../components/Header";
 import { RushesDisplay } from "../components/table/RushesDisplay";
 import { TableNavigation } from "../components/table/TableNavigation";
-import { GET_ALL_RUSHES, SEARCH_FOR_PLAYER } from "../constants";
-import { PageDirection, RushesResult } from "../types";
+import { GET_ALL_RUSHES } from "../constants";
+import { DataFilter, PageDirection, RushesResult } from "../types";
 import { getNewData } from "../utils/getNewData";
 
 interface HomeProps {
@@ -15,7 +15,11 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ _rushData }) => {
   const [rushData, setRushData] = useState(_rushData);
   const [currentLink, setCurrentLink] = useState<string>(GET_ALL_RUSHES);
-  const [loading, setLoading] = useState(false);
+  const [currentFilter, setCurrentFilter] = useState<DataFilter>({
+    filter: "default",
+    direction: undefined,
+    name: undefined,
+  });
 
   const recieveNewData = async (direction?: PageDirection, link?: string) => {
     const newData = await getNewData(
@@ -31,9 +35,10 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
     setRushData({ ...rushData, limit: limit });
   };
 
-  const updateFetchLink = (newLink: string) => {
+  const updateFetchLink = (newLink: string, filter: DataFilter) => {
     if (newLink === currentLink) return;
     setCurrentLink(newLink);
+    setCurrentFilter(filter);
     recieveNewData(undefined, newLink);
   };
 
@@ -50,6 +55,7 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
             limit={rushData.limit}
             hasNext={rushData.next !== null}
             hasPrev={rushData.prev !== null}
+            dataFilter={currentFilter}
           />
         )}
       </BodyWrapper>

@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import Head from "next/head";
 import { FlagIcon, SearchIcon } from "@heroicons/react/outline";
 import { GET_ALL_RUSHES, SEARCH_FOR_PLAYER } from "../constants";
+import { DataFilter } from "../types";
 
 interface HeaderProps {
-  searchForPlayer: (playerName: string) => void;
+  searchForPlayer: (playerName: string, filter: DataFilter) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ searchForPlayer }) => {
   const [playerName, setPlayerName] = useState("");
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (playerName.length === 0) searchForPlayer(GET_ALL_RUSHES);
-      else searchForPlayer(SEARCH_FOR_PLAYER + `/${playerName}`);
+      if (playerName.length === 0)
+        searchForPlayer(GET_ALL_RUSHES, { filter: "default" });
+      else
+        searchForPlayer(SEARCH_FOR_PLAYER + `/${playerName}`, {
+          filter: "player",
+          name: playerName,
+        });
     }
   };
 
@@ -35,7 +41,12 @@ export const Header: React.FC<HeaderProps> = ({ searchForPlayer }) => {
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <button
               type="submit"
-              onClick={() => searchForPlayer(playerName)}
+              onClick={() =>
+                searchForPlayer(playerName, {
+                  filter: "player",
+                  name: playerName,
+                })
+              }
               className="p-1 focus:outline-none focus:shadow-outline"
             >
               <SearchIcon className="w-6 h-6" />

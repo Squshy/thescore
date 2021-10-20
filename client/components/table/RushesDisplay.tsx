@@ -1,11 +1,11 @@
 import React from "react";
-import { Rush } from "../../types";
+import { DataFilter, Rush } from "../../types";
 import { TableBody } from "./TableBody";
 import { TableHeader } from "./TableHeader";
 
 interface RushesDisplayProps {
   rushes: Rush[];
-  sortData: (link: string) => void;
+  sortData: (link: string, filter: DataFilter) => void;
 }
 
 export const RushesDisplay: React.FC<RushesDisplayProps> = ({

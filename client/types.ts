@@ -27,3 +27,9 @@ export type RushesResult = {
 };
 
 export type PageDirection = "next" | "prev" | "new";
+
+export interface DataFilter {
+  filter: "touchdowns" | "yards" | "longest" | "player" | 'default';
+  direction?: "asc" | "desc";
+  name?: string;
+}
