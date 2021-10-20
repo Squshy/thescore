@@ -6,7 +6,7 @@ interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = ({}) => {
   return (
-    <>
+    <div>
       <Head>
         <title>NFL Rushing Info</title>
         <meta
@@ -38,6 +38,6 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };

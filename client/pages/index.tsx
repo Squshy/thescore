@@ -17,15 +17,13 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
   const [loading, setLoading] = useState(false);
 
   const recieveNewData = async (direction: PageDirection) => {
-    setLoading(true);
     const newData = await getNewData(rushData, GET_ALL_RUSHES, direction);
     if (newData === null) return; // add error
     setRushData(newData);
-    setLoading(false);
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-900 text-white">
+    <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <Header />
       <BodyWrapper>
         <RushesDisplay rushes={rushData.results} />
@@ -34,6 +32,9 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
           prev={() => recieveNewData("prev")}
         />
       </BodyWrapper>
+      <footer className="h-32 border-t border-gray-700 flex items-center justify-center text-gray-700">
+        Calvin Lapp
+      </footer>
     </div>
   );
 };

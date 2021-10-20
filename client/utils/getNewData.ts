@@ -8,7 +8,7 @@ export const getNewData = async (
   const { prev, next, limit } = current;
   if (direction === "next" && next === null) return null;
   if (direction === "prev" && prev === null) return null;
-  const pageToView = direction === "next" ? next! + 1 : prev! - 1;
+  const pageToView = direction === "next" ? next : prev;
   const res = await fetch(url + `?page=${pageToView}&limit=${limit}`);
   return await res.json();
 };

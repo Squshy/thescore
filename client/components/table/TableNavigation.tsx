@@ -1,4 +1,6 @@
+import { SaveIcon } from "@heroicons/react/outline";
 import React from "react";
+import { NumPerPageButton } from "../NumPerPageButton";
 import { NavButton } from "./NavButton";
 
 interface TableNavigationProps {
@@ -11,10 +13,19 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
   prev,
 }) => {
   return (
-    <div className="flex py-4 justify-between">
-      <div className="-m-2">
-        <NavButton text="Prev" func={prev} />
-        <NavButton text="Next" func={next} />
+    <div className="flex md:flex py-4 flex-wrap-reverse justify-center space-y-2 md:flex-no-wrap md:justify-between">
+      <div className="-m-2 flex items-center">
+        <NavButton func={prev}>Prev</NavButton>
+        <NavButton func={next}>Next</NavButton>
+      </div>
+      <div className="-m-2 flex items-center">
+        <NavButton func={() => {}}>
+          <div className="flex items-center -m-1">
+            <SaveIcon className="w-5 h-5 m-1" />
+            <p className="m-1 text-sm font-thin">Save as CSV</p>
+          </div>
+        </NavButton>
+        <NumPerPageButton />
       </div>
     </div>
   );
