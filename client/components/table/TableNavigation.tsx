@@ -7,6 +7,7 @@ interface TableNavigationProps {
   next: () => void;
   prev: () => void;
   updateLimit: (newNum: number) => void;
+  updateSort: (sort: string) => void;
   limit: number;
 }
 
@@ -14,6 +15,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
   next,
   prev,
   updateLimit,
+  updateSort,
   limit,
 }) => {
   return (
@@ -29,7 +31,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
             <p className="m-1 text-sm font-thin">Save as CSV</p>
           </div>
         </NavButton>
-        <NumPerPageButton updateLimit={updateLimit} limit={limit} />
+        <NumPerPageButton updateLimit={updateLimit} limit={limit} className="w-20"/>
       </div>
     </div>
   );

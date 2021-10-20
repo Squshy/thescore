@@ -27,3 +27,5 @@ export type RushesResult = {
 };
 
 export type PageDirection = "next" | "prev" | "new";
+
+export type DataSort = { id: number; name: string; link: string };

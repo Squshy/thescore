@@ -14,10 +14,11 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ _rushData }) => {
   const [rushData, setRushData] = useState(_rushData);
+  const [currentLink, setCurrentLink] = useState<string>(GET_ALL_RUSHES);
   const [loading, setLoading] = useState(false);
 
-  const recieveNewData = async (direction: PageDirection) => {
-    const newData = await getNewData(rushData, GET_ALL_RUSHES, direction);
+  const recieveNewData = async (direction?: PageDirection) => {
+    const newData = await getNewData(rushData, currentLink, direction);
     if (newData === null) return; // add error
     setRushData(newData);
   };
@@ -27,20 +28,25 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
   };
 
   const searchForPlayer = async (playerName: string) => {
-    const newData = await getNewData(rushData, SEARCH_FOR_PLAYER + `/${playerName}`);
-    if (newData === null) return; // add error
-    setRushData(newData);
+    const newLink = SEARCH_FOR_PLAYER + `/${playerName}`;
+    updateFetchLink(newLink);
+  };
+
+  const updateFetchLink = (newLink: string) => {
+    setCurrentLink(newLink);
+    recieveNewData();
   };
 
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col justify-between">
       <Header searchForPlayer={searchForPlayer} />
       <BodyWrapper>
-        <RushesDisplay rushes={rushData.results} />
+        <RushesDisplay rushes={rushData.results} sortData={updateFetchLink} />
         <TableNavigation
           next={() => recieveNewData("next")}
           prev={() => recieveNewData("prev")}
           updateLimit={updateLimit}
+          updateSort={updateFetchLink}
           limit={rushData.limit}
         />
       </BodyWrapper>
