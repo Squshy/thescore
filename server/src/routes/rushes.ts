@@ -46,7 +46,7 @@ router.get(
     };
 
     try {
-      results.results = await Rush.find({ $text: { $search: name } })
+      results.results = await Rush.find({ $text: { $search: name as string } })
         .limit(fakeLimit)
         .skip(startIndex)
         .exec();
@@ -150,6 +150,7 @@ router.get("/csv", async (req: Request, res: Response) => {
   const baseFileName = "nfl-rushing";
   const sort = req.query.sort;
   const direction = req.query.dir === "asc" ? "asc" : "desc";
+  const player = req.query.player;
   let results: RushType[] = [];
   if (sort) {
     console.log(sort);
@@ -167,6 +168,11 @@ router.get("/csv", async (req: Request, res: Response) => {
         break;
       case "yards":
         results = await Rush.find().lean().sort({ Yds: direction }).exec();
+        break;
+      case "player":
+        results = await Rush.find({ $text: { $search: player as string } })
+          .lean()
+          .exec();
         break;
       default:
         results = await Rush.find().lean().exec();

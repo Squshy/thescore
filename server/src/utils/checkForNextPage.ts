@@ -5,5 +5,5 @@ export const checkForNextPage = (results: PaginationResult, limit: number) => {
   // set next page to null
   if (results.results.length <= limit) results.next = null;
   // Pop the last result as we don't actually want it, just wanna see if there is another page after this or not
-  results.results.pop();
+  else results.results.pop();
 };
