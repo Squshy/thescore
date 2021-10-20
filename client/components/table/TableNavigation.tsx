@@ -1,6 +1,6 @@
 import { SaveIcon } from "@heroicons/react/outline";
 import React, { useState } from "react";
-import { DataFilter } from "../../types";
+import { DataFilter, Rush } from "../../types";
 import { CSVModal } from "../modal/CSVModal";
 import { NumPerPageButton } from "../NumPerPageButton";
 import { NavButton } from "./NavButton";
@@ -13,6 +13,7 @@ interface TableNavigationProps {
   hasNext: boolean;
   hasPrev: boolean;
   dataFilter: DataFilter;
+  rushes: Rush[];
 }
 
 export const TableNavigation: React.FC<TableNavigationProps> = ({
@@ -23,6 +24,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
   hasNext,
   hasPrev,
   dataFilter,
+  rushes,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
@@ -54,6 +56,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
         isOpen={isModalOpen}
         closeModal={() => setIsModalOpen(false)}
         dataFilter={dataFilter}
+        rushes={rushes}
       />
     </>
   );

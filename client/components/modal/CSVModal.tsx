@@ -1,22 +1,27 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { DataFilter } from "../../types";
+import { DataFilter, Rush } from "../../types";
 import { csvURLParser } from "../../utils/csvURLParser";
 import { ModalButton } from "./ModalButton";
 import download from "downloadjs";
+import { rushesToCSV } from "../../utils/rushesToCSV";
 
 interface CSVModalProps {
   isOpen: boolean;
   closeModal: () => void;
   dataFilter: DataFilter;
+  rushes: Rush[]
 }
 
 export const CSVModal: React.FC<CSVModalProps> = ({
   closeModal,
   isOpen,
   dataFilter,
+  rushes
 }) => {
-  const downloadCurrent = () => {
+  const downloadCurrent = async () => {
+    const csvData = await rushesToCSV(rushes);
+    download(csvData, `nfl-rushing-${dataFilter.filter}.csv`, csvData.type);
     closeModal();
   };
 
@@ -26,6 +31,7 @@ export const CSVModal: React.FC<CSVModalProps> = ({
     download(csvData, `nfl-rushing-${dataFilter.filter}-all.csv`, csvData.type);
     closeModal();
   };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog

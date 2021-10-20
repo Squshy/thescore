@@ -56,6 +56,7 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
             hasNext={rushData.next !== null}
             hasPrev={rushData.prev !== null}
             dataFilter={currentFilter}
+            rushes={rushData.results}
           />
         )}
       </BodyWrapper>
