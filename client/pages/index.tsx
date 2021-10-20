@@ -17,8 +17,12 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
   const [currentLink, setCurrentLink] = useState<string>(GET_ALL_RUSHES);
   const [loading, setLoading] = useState(false);
 
-  const recieveNewData = async (direction?: PageDirection) => {
-    const newData = await getNewData(rushData, currentLink, direction);
+  const recieveNewData = async (direction?: PageDirection, link?: string) => {
+    const newData = await getNewData(
+      rushData,
+      link ? link : currentLink,
+      direction
+    );
     if (newData === null) return; // add error
     setRushData(newData);
   };
@@ -34,7 +38,7 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
 
   const updateFetchLink = (newLink: string) => {
     setCurrentLink(newLink);
-    recieveNewData();
+    recieveNewData(undefined, newLink);
   };
 
   return (

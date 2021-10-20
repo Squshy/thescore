@@ -7,7 +7,6 @@ interface TableBodyProps {
 }
 
 export const TableBody: React.FC<TableBodyProps> = ({ rushes }) => {
-  console.log("Rushes:", rushes);
   return (
     <tbody className="divide-y divide-gray-700">
       {rushes.map((rush) => {
