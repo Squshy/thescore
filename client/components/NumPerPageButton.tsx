@@ -23,7 +23,7 @@ export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({
     <div className="w-20 h-12">
       <Listbox value={selected} onChange={updateSelected}>
         <div className="relative">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 rounded-sm shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm h-12">
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-gray-800 rounded-sm shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-gray-500 sm:text-sm h-12">
             <span className="block truncate">{selected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
@@ -38,7 +38,7 @@ export const NumPerPageButton: React.FC<NumPerPageButtonProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-600 bg-opacity-25 rounded-sm shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-gray-600 bg-opacity-25 backdrop-filter backdrop-blur-sm rounded-sm shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {NUM_ITEMS_PER_PAGE.map((number, idx) => (
                 <Listbox.Option
                   key={idx}
