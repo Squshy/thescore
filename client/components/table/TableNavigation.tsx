@@ -29,8 +29,8 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <>
-      <div className="flex md:flex py-4 flex-wrap-reverse justify-center space-y-2 md:flex-no-wrap md:justify-between">
-        <div className="-m-2 flex items-center">
+      <div className="flex md:flex py-4 flex-wrap-reverse justify-center -m-px md:space-y-0  md:flex-no-wrap md:justify-between">
+        <div className="m-px md:-m-2 flex items-center">
           <NavButton func={prev} show={hasPrev}>
             Prev
           </NavButton>
@@ -38,7 +38,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
             Next
           </NavButton>
         </div>
-        <div className="-m-2 flex items-center">
+        <div className="m-px md:-m-2 flex items-center">
           <NavButton func={() => setIsModalOpen(true)}>
             <div className="flex items-center -m-1">
               <SaveIcon className="w-5 h-5 m-1" />
@@ -48,7 +48,7 @@ export const TableNavigation: React.FC<TableNavigationProps> = ({
           <NumPerPageButton
             updateLimit={updateLimit}
             limit={limit}
-            className="w-20"
+            className="m-2 w-20"
           />
         </div>
       </div>

@@ -14,10 +14,7 @@ db.on("open", () => console.log("connected to database"));
 const app = express();
 app.use(json());
 app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-  })
+  cors()
 );
 // Routes
 app.use("/rushes", RushesRouter);
