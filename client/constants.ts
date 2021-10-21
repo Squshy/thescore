@@ -9,6 +9,5 @@ export const SORT_BY_TOUCHDOWNS = BASE_URL + "/sort/touchdowns";
 export const SORT_BY_LONGEST_RUSH = BASE_URL + "/sort/longest";
 export const DOWNLOAD_CSV = BASE_URL + "/csv";
 
-
 // Data variants
 export const NUM_ITEMS_PER_PAGE = [5, 10, 15, 25, 50];

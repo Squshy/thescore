@@ -77,7 +77,6 @@ const Home: NextPage<HomeProps> = ({ _rushData }) => {
 
 export async function getStaticProps() {
   const res = await fetch(GET_ALL_RUSHES);
-  console.log(res);
   const _rushData: RushesResult = await res.json();
 
   return {
